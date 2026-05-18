@@ -4,8 +4,8 @@ Jalankan: python seed.py
 Tabel: tblmhs, tbldosen, tblmk, tblkul
 """
 from sqlalchemy.orm import Session
-from database import engine, Base
-from models import Mahasiswa, Dosen, Matakuliah, Perkuliahan
+from backend.database import engine, Base
+from backend.models import Mahasiswa, Dosen, Matakuliah, Perkuliahan
 
 
 def seed():
