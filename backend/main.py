@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session, joinedload
 from typing import List
-import models, schemas, database
+from backend import models, schemas, database
 
 
 app = FastAPI(title="SIAKAD API - Portal Akademik Kampus")
@@ -66,8 +66,8 @@ def hapus_mahasiswa(nim: str, db: Session = Depends(database.get_db)):
     if not mhs:
         raise HTTPException(status_code=404, detail="Mahasiswa tidak ditemukan")
 
-    # Hapus juga data KRS milik mahasiswa ini agar tidak error relasi
-    db.query(models.Perkuliahan).filter_by(nim=nim).delete()
+    # PERBAIKAN: Tambahkan synchronize_session=False
+    db.query(models.Perkuliahan).filter_by(nim=nim).delete(synchronize_session=False)
     db.delete(mhs)
     db.commit()
     return {"message": "Data mahasiswa berhasil dihapus"}
@@ -108,8 +108,9 @@ def hapus_dosen(nip: str, db: Session = Depends(database.get_db)):
     dosen = db.query(models.Dosen).filter_by(nip=nip).first()
     if not dosen:
         raise HTTPException(status_code=404, detail="Dosen tidak ditemukan")
-    # Hapus data KRS yang terkait dosen ini
-    db.query(models.Perkuliahan).filter_by(nip=nip).delete()
+    
+    # PERBAIKAN: Tambahkan synchronize_session=False
+    db.query(models.Perkuliahan).filter_by(nip=nip).delete(synchronize_session=False)
     db.delete(dosen)
     db.commit()
     return {"message": "Data dosen berhasil dihapus"}
@@ -151,7 +152,9 @@ def hapus_matakuliah(kode: str, db: Session = Depends(database.get_db)):
     mk = db.query(models.Matakuliah).filter_by(kode=kode).first()
     if not mk:
         raise HTTPException(status_code=404, detail="Matakuliah tidak ditemukan")
-    db.query(models.Perkuliahan).filter_by(kode=kode).delete()
+    
+    # PERBAIKAN: Tambahkan synchronize_session=False
+    db.query(models.Perkuliahan).filter_by(kode=kode).delete(synchronize_session=False)
     db.delete(mk)
     db.commit()
     return {"message": "Matakuliah berhasil dihapus"}

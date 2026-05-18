@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <style>
         /* ============================== */
-        /*       CSS DESIGN SYSTEM        */
+        /* CSS DESIGN SYSTEM        */
         /* ============================== */
         :root {
             /* Color Palette - Deep Navy & Cyan Accent */
@@ -77,7 +77,7 @@
         ::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
 
         /* ============================== */
-        /*          LAYOUT                */
+        /* LAYOUT                */
         /* ============================== */
         .app-layout {
             display: flex;
@@ -85,7 +85,7 @@
         }
 
         /* ============================== */
-        /*          SIDEBAR               */
+        /* SIDEBAR               */
         /* ============================== */
         .sidebar {
             width: var(--sidebar-width);
@@ -197,7 +197,7 @@
         }
 
         /* ============================== */
-        /*          MAIN CONTENT          */
+        /* MAIN CONTENT          */
         /* ============================== */
         .main-content {
             flex: 1;
@@ -264,7 +264,7 @@
         }
 
         /* ============================== */
-        /*        DASHBOARD CARDS         */
+        /* DASHBOARD CARDS         */
         /* ============================== */
         .stats-grid {
             display: grid;
@@ -342,7 +342,7 @@
         .stat-card:nth-child(4) .stat-value { color: var(--warning); }
 
         /* ============================== */
-        /*         DATA SECTION           */
+        /* DATA SECTION           */
         /* ============================== */
         .section-card {
             background: var(--bg-card);
@@ -373,7 +373,7 @@
         }
 
         /* ============================== */
-        /*           BUTTONS              */
+        /* BUTTONS              */
         /* ============================== */
         .btn {
             display: inline-flex;
@@ -443,7 +443,7 @@
         }
 
         /* ============================== */
-        /*           TABLE                */
+        /* TABLE                */
         /* ============================== */
         .data-table-wrap {
             overflow-x: auto;
@@ -539,7 +539,7 @@
         }
 
         /* ============================== */
-        /*           MODAL                */
+        /* MODAL                */
         /* ============================== */
         .modal-overlay {
             position: fixed;
@@ -669,7 +669,7 @@
         }
 
         /* ============================== */
-        /*           TOAST                */
+        /* TOAST                */
         /* ============================== */
         .toast-container {
             position: fixed;
@@ -712,7 +712,7 @@
         }
 
         /* ============================== */
-        /*         LOADING SPINNER        */
+        /* LOADING SPINNER        */
         /* ============================== */
         .spinner {
             display: inline-block;
@@ -739,7 +739,7 @@
         }
 
         /* ============================== */
-        /*        CONFIRM DIALOG          */
+        /* CONFIRM DIALOG          */
         /* ============================== */
         .confirm-overlay {
             position: fixed;
@@ -800,7 +800,7 @@
         }
 
         /* ============================== */
-        /*        RESPONSIVE              */
+        /* RESPONSIVE              */
         /* ============================== */
         @media (max-width: 1024px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
@@ -860,7 +860,7 @@
         }
 
         /* ============================== */
-        /*          ANIMATIONS            */
+        /* ANIMATIONS            */
         /* ============================== */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(16px); }
@@ -980,10 +980,8 @@
     </style>
 </head>
 <body>
-    <!-- TOAST CONTAINER -->
     <div class="toast-container" id="toastContainer"></div>
 
-    <!-- CONFIRM DELETE DIALOG -->
     <div class="confirm-overlay" id="confirmOverlay">
         <div class="confirm-box">
             <span class="material-icons-round">warning_amber</span>
@@ -998,11 +996,9 @@
         </div>
     </div>
 
-    <!-- SIDEBAR OVERLAY (mobile) -->
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
     <div class="app-layout">
-        <!-- SIDEBAR -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-brand">
                 <div class="brand-icon">
@@ -1040,7 +1036,6 @@
             </nav>
         </aside>
 
-        <!-- MAIN CONTENT -->
         <main class="main-content">
             <header class="top-header">
                 <div class="header-left">
@@ -1055,7 +1050,6 @@
             </header>
 
             <div class="page-content">
-                <!-- ==================== DASHBOARD ==================== -->
                 <div class="page-section active" id="section-dashboard">
                     <div class="welcome-card animate-in">
                         <h2>👋 Selamat Datang di SIAKAD</h2>
@@ -1086,7 +1080,6 @@
                     </div>
                 </div>
 
-                <!-- ==================== MAHASISWA ==================== -->
                 <div class="page-section" id="section-mahasiswa">
                     <div class="section-card">
                         <div class="section-header">
@@ -1115,7 +1108,6 @@
                     </div>
                 </div>
 
-                <!-- ==================== DOSEN ==================== -->
                 <div class="page-section" id="section-dosen">
                     <div class="section-card">
                         <div class="section-header">
@@ -1144,7 +1136,6 @@
                     </div>
                 </div>
 
-                <!-- ==================== MATAKULIAH ==================== -->
                 <div class="page-section" id="section-matakuliah">
                     <div class="section-card">
                         <div class="section-header">
@@ -1173,7 +1164,6 @@
                     </div>
                 </div>
 
-                <!-- ==================== KRS ==================== -->
                 <div class="page-section" id="section-krs">
                     <div class="section-card">
                         <div class="section-header">
@@ -1205,9 +1195,6 @@
         </main>
     </div>
 
-    <!-- ==================== MODALS ==================== -->
-
-    <!-- Modal Mahasiswa -->
     <div class="modal-overlay" id="modalMhs">
         <div class="modal">
             <div class="modal-header">
@@ -1238,7 +1225,6 @@
         </div>
     </div>
 
-    <!-- Modal Dosen -->
     <div class="modal-overlay" id="modalDosen">
         <div class="modal">
             <div class="modal-header">
@@ -1269,7 +1255,6 @@
         </div>
     </div>
 
-    <!-- Modal Matakuliah -->
     <div class="modal-overlay" id="modalMK">
         <div class="modal">
             <div class="modal-header">
@@ -1304,7 +1289,6 @@
         </div>
     </div>
 
-    <!-- Modal KRS -->
     <div class="modal-overlay" id="modalKRS">
         <div class="modal">
             <div class="modal-header">
@@ -1354,12 +1338,12 @@
 
     <script>
     /* ============================== */
-    /*         API BASE URL           */
+    /* API BASE URL           */
     /* ============================== */
-    const API = "https://unseared-skidproof-jim.ngrok-free.dev";
+    const API = "http://100.103.74.76";
 
     /* ============================== */
-    /*      LOCAL DATA CACHE          */
+    /* LOCAL DATA CACHE          */
     /* ============================== */
     let dataMhs = [];
     let dataDosen = [];
@@ -1367,14 +1351,14 @@
     let dataKRS = [];
 
     /* ============================== */
-    /*        INITIALIZATION          */
+    /* INITIALIZATION          */
     /* ============================== */
     document.addEventListener('DOMContentLoaded', () => {
         loadDashboard();
     });
 
     /* ============================== */
-    /*         NAVIGATION             */
+    /* NAVIGATION             */
     /* ============================== */
     function navigate(page) {
         // Hide all sections
@@ -1416,7 +1400,7 @@
     }
 
     /* ============================== */
-    /*         TOAST                  */
+    /* TOAST                  */
     /* ============================== */
     function showToast(message, type = 'success') {
         const container = document.getElementById('toastContainer');
@@ -1432,7 +1416,7 @@
     }
 
     /* ============================== */
-    /*       CONFIRM DELETE           */
+    /* CONFIRM DELETE           */
     /* ============================== */
     let pendingDeleteFn = null;
 
@@ -1453,7 +1437,7 @@
     }
 
     /* ============================== */
-    /*          MODAL UTILS           */
+    /* MODAL UTILS           */
     /* ============================== */
     function openModal(id) {
         document.getElementById(id).classList.add('show');
@@ -1464,7 +1448,7 @@
     }
 
     /* ============================== */
-    /*     FETCH HELPER               */
+    /* FETCH HELPER (FIXED)       */
     /* ============================== */
     async function apiFetch(url, options = {}) {
         try {
@@ -1478,8 +1462,19 @@
                 headers,
                 ...options,
             });
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.detail || 'Terjadi kesalahan');
+            
+            // Tangkap text agar tidak error saat responnya kosong
+            const text = await res.text();
+            let data = {};
+            if (text) {
+                try {
+                    data = JSON.parse(text);
+                } catch (e) {
+                    data = { detail: text };
+                }
+            }
+
+            if (!res.ok) throw new Error(data.detail || data.message || 'Terjadi kesalahan pada server');
             return data;
         } catch (err) {
             showToast(err.message, 'error');
@@ -1488,7 +1483,7 @@
     }
 
     /* ============================== */
-    /*         DASHBOARD              */
+    /* DASHBOARD              */
     /* ============================== */
     async function loadDashboard() {
         try {
@@ -1512,7 +1507,7 @@
     }
 
     /* ============================== */
-    /*         MAHASISWA              */
+    /* MAHASISWA              */
     /* ============================== */
     async function loadMahasiswa() {
         const tbody = document.getElementById('tbodyMhs');
@@ -1569,7 +1564,7 @@
 
         try {
             if (editNim) {
-                await apiFetch(`/mahasiswa/${editNim}`, { method: 'PUT', body: JSON.stringify({ nama, alamat }) });
+                await apiFetch(`/mahasiswa/${encodeURIComponent(editNim)}`, { method: 'PUT', body: JSON.stringify({ nama, alamat }) });
                 showToast('Data mahasiswa berhasil diupdate');
             } else {
                 await apiFetch('/mahasiswa/', { method: 'POST', body: JSON.stringify({ nim, nama, alamat }) });
@@ -1583,7 +1578,7 @@
     function deleteMhs(nim, nama) {
         confirmDelete(`Hapus mahasiswa "${nama}" (${nim})?`, async () => {
             try {
-                await apiFetch(`/mahasiswa/${nim}`, { method: 'DELETE' });
+                await apiFetch(`/mahasiswa/${encodeURIComponent(nim)}`, { method: 'DELETE' });
                 showToast('Data mahasiswa berhasil dihapus');
                 loadMahasiswa();
             } catch { /* handled */ }
@@ -1591,7 +1586,7 @@
     }
 
     /* ============================== */
-    /*           DOSEN                */
+    /* DOSEN                */
     /* ============================== */
     async function loadDosen() {
         const tbody = document.getElementById('tbodyDosen');
@@ -1648,7 +1643,7 @@
 
         try {
             if (editNip) {
-                await apiFetch(`/dosen/${editNip}`, { method: 'PUT', body: JSON.stringify({ nama, alamat }) });
+                await apiFetch(`/dosen/${encodeURIComponent(editNip)}`, { method: 'PUT', body: JSON.stringify({ nama, alamat }) });
                 showToast('Data dosen berhasil diupdate');
             } else {
                 await apiFetch('/dosen/', { method: 'POST', body: JSON.stringify({ nip, nama, alamat }) });
@@ -1662,7 +1657,7 @@
     function deleteDosen(nip, nama) {
         confirmDelete(`Hapus dosen "${nama}" (${nip})?`, async () => {
             try {
-                await apiFetch(`/dosen/${nip}`, { method: 'DELETE' });
+                await apiFetch(`/dosen/${encodeURIComponent(nip)}`, { method: 'DELETE' });
                 showToast('Data dosen berhasil dihapus');
                 loadDosen();
             } catch { /* handled */ }
@@ -1670,7 +1665,7 @@
     }
 
     /* ============================== */
-    /*         MATAKULIAH             */
+    /* MATAKULIAH             */
     /* ============================== */
     async function loadMatakuliah() {
         const tbody = document.getElementById('tbodyMK');
@@ -1730,7 +1725,7 @@
 
         try {
             if (editKode) {
-                await apiFetch(`/matakuliah/${editKode}`, { method: 'PUT', body: JSON.stringify({ namamatkul, sks, semester }) });
+                await apiFetch(`/matakuliah/${encodeURIComponent(editKode)}`, { method: 'PUT', body: JSON.stringify({ namamatkul, sks, semester }) });
                 showToast('Matakuliah berhasil diupdate');
             } else {
                 await apiFetch('/matakuliah/', { method: 'POST', body: JSON.stringify({ kode, namamatkul, sks, semester }) });
@@ -1744,7 +1739,7 @@
     function deleteMK(kode, nama) {
         confirmDelete(`Hapus matakuliah "${nama}" (${kode})?`, async () => {
             try {
-                await apiFetch(`/matakuliah/${kode}`, { method: 'DELETE' });
+                await apiFetch(`/matakuliah/${encodeURIComponent(kode)}`, { method: 'DELETE' });
                 showToast('Matakuliah berhasil dihapus');
                 loadMatakuliah();
             } catch { /* handled */ }
@@ -1752,7 +1747,7 @@
     }
 
     /* ============================== */
-    /*             KRS                */
+    /* KRS                */
     /* ============================== */
     async function loadKRS() {
         const tbody = document.getElementById('tbodyKRS');
@@ -1833,7 +1828,7 @@
 
         try {
             if (editId) {
-                await apiFetch(`/krs/${editId}`, { method: 'PUT', body: JSON.stringify({ nilai: nilai || null }) });
+                await apiFetch(`/krs/${encodeURIComponent(editId)}`, { method: 'PUT', body: JSON.stringify({ nilai: nilai || null }) });
                 showToast('Nilai KRS berhasil diupdate');
             } else {
                 const nim = document.getElementById('inputKrsNIM').value;
@@ -1851,7 +1846,7 @@
     function deleteKRS(id) {
         confirmDelete(`Hapus data KRS dengan ID ${id}?`, async () => {
             try {
-                await apiFetch(`/krs/${id}`, { method: 'DELETE' });
+                await apiFetch(`/krs/${encodeURIComponent(id)}`, { method: 'DELETE' });
                 showToast('KRS berhasil dihapus');
                 loadKRS();
             } catch { /* handled */ }
@@ -1859,10 +1854,10 @@
     }
 
     /* ============================== */
-    /*        SEARCH / FILTER         */
+    /* SEARCH / FILTER         */
     /* ============================== */
     function filterTable(type) {
-        let query, data, renderFn;
+        let query, data;
         if (type === 'mahasiswa') {
             query = document.getElementById('searchMhs').value.toLowerCase();
             data = dataMhs.filter(m => m.nim.toLowerCase().includes(query) || m.nama.toLowerCase().includes(query));
@@ -1890,7 +1885,7 @@
     }
 
     /* ============================== */
-    /*          UTILS                 */
+    /* UTILS                 */
     /* ============================== */
     function esc(str) {
         if (str == null) return '';
