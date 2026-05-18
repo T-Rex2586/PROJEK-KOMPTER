@@ -3,6 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session, joinedload
 from typing import List
 from backend import models, schemas, database
+import ntplib
+from datetime import datetime, timezone, timedelta
+import asyncio
 
 
 app = FastAPI(title="SIAKAD API - Portal Akademik Kampus")
@@ -27,6 +30,46 @@ def get_stats(db: Session = Depends(database.get_db)):
         "total_matakuliah": db.query(models.Matakuliah).count(),
         "total_krs": db.query(models.Perkuliahan).count(),
     }
+
+
+# ==========================================
+# WAKTU SERVER (SINKRON NTP)
+# ==========================================
+@app.get("/waktu")
+async def get_waktu_ntp():
+    WIB = timezone(timedelta(hours=7))
+
+    def query_ntp():
+        c = ntplib.NTPClient()
+        return c.request('id.pool.ntp.org', version=3, timeout=3)
+
+    try:
+        loop = asyncio.get_event_loop()
+        response = await asyncio.wait_for(
+            loop.run_in_executor(None, query_ntp),
+            timeout=4.0
+        )
+        waktu_utc = datetime.fromtimestamp(response.tx_time, tz=timezone.utc)
+        waktu_wib = waktu_utc.astimezone(WIB)
+        return {
+            "sumber": "NTP (id.pool.ntp.org)",
+            "waktu_utc": waktu_utc.isoformat(),
+            "waktu_wib": waktu_wib.strftime("%d %B %Y, %H:%M:%S WIB"),
+            "tahun": waktu_wib.year,
+            "bulan": waktu_wib.month,
+            "tanggal": waktu_wib.day,
+        }
+    except Exception:
+        # Fallback ke waktu server lokal jika NTP tidak tersedia
+        waktu_wib = datetime.now(WIB)
+        return {
+            "sumber": "Server Lokal (NTP tidak tersedia)",
+            "waktu_utc": datetime.now(timezone.utc).isoformat(),
+            "waktu_wib": waktu_wib.strftime("%d %B %Y, %H:%M:%S WIB"),
+            "tahun": waktu_wib.year,
+            "bulan": waktu_wib.month,
+            "tanggal": waktu_wib.day,
+        }
 
 
 # ==========================================

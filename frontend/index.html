@@ -977,6 +977,19 @@
             position: relative;
             z-index: 1;
         }
+        /* NTP Clock */
+        .ntp-clock {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(56,189,248,0.08);
+            border: 1px solid rgba(56,189,248,0.2);
+            border-radius: var(--radius-sm);
+            padding: 6px 12px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-variant-numeric: tabular-nums;
+        }
     </style>
 </head>
 <body>
@@ -1045,6 +1058,10 @@
                     <span class="page-title" id="pageTitle">Dashboard</span>
                 </div>
                 <div class="header-right">
+                    <div class="ntp-clock" id="ntpClock">
+                        <span class="material-icons-round" style="font-size:16px;color:var(--accent-primary)">schedule</span>
+                        <span id="ntpTimeDisplay">Memuat waktu...</span>
+                    </div>
                     <span class="header-badge">Tahun Akademik 2025/2026</span>
                 </div>
             </header>
@@ -1344,6 +1361,40 @@
     const API = `http://${window.location.hostname}:9000`;
 
     /* ============================== */
+    /* NTP CLOCK                      */
+    /* ============================== */
+    let _ntpOffset = 0; // selisih ms antara waktu NTP dan waktu lokal
+
+    async function initNTPClock() {
+        try {
+            const res = await fetch(API + '/waktu');
+            const data = await res.json();
+            // Hitung offset: waktu NTP - waktu lokal sekarang
+            const ntpMs = new Date(data.waktu_utc).getTime();
+            _ntpOffset = ntpMs - Date.now();
+        } catch (e) {
+            _ntpOffset = 0; // fallback pakai waktu lokal
+        }
+        tickClock();
+    }
+
+    function tickClock() {
+        const el = document.getElementById('ntpTimeDisplay');
+        if (!el) return;
+        const now = new Date(Date.now() + _ntpOffset);
+        const WIB_OFFSET = 7 * 60 * 60 * 1000;
+        const wib = new Date(now.getTime() + WIB_OFFSET);
+        const pad = n => String(n).padStart(2, '0');
+        const dateStr = `${pad(wib.getUTCDate())}/${pad(wib.getUTCMonth()+1)}/${wib.getUTCFullYear()}`;
+        const timeStr = `${pad(wib.getUTCHours())}:${pad(wib.getUTCMinutes())}:${pad(wib.getUTCSeconds())} WIB`;
+        el.textContent = `${dateStr} ${timeStr}`;
+        setTimeout(tickClock, 1000);
+    }
+
+    // Sinkron ulang NTP setiap 5 menit
+    setInterval(initNTPClock, 5 * 60 * 1000);
+
+    /* ============================== */
     /* LOCAL DATA CACHE          */
     /* ============================== */
     let dataMhs = [];
@@ -1355,6 +1406,7 @@
     /* INITIALIZATION          */
     /* ============================== */
     document.addEventListener('DOMContentLoaded', () => {
+        initNTPClock();
         loadDashboard();
     });
 
