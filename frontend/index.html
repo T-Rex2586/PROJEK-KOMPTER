@@ -1357,8 +1357,8 @@
     /* ============================== */
     /* API BASE URL           */
     /* ============================== */
-    // Mendeteksi IP/hostname secara otomatis agar sesuai dengan backend yang sedang berjalan
-    const API = `http://${window.location.hostname}:9000`;
+    // URL backend di-hardcode ke IP Tailscale Anda (port 9000) agar selalu terhubung ke server Anda
+    const API = "http://100.126.133.81:9000";
 
     /* ============================== */
     /* NTP CLOCK                      */
