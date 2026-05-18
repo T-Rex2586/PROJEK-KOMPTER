@@ -1,26 +1,12 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
-import os
-
-host = os.getenv("DB_HOST", "100.103.74.76")
-user = os.getenv("DB_USER")
-password = os.getenv("DB_PASSWORD")
-
-if user and password:
-    # SQL Server authentication
-    SQLALCHEMY_DATABASE_URL = (
-        f"mssql+pyodbc://{user}:{password}@{host}/kuliah"
-        "?driver=ODBC+Driver+17+for+SQL+Server"
-    )
-else:
-    # Windows Integrated authentication (fallback for local testing)
-    SQLALCHEMY_DATABASE_URL = (
-        f"mssql+pyodbc://@{host}/kuliah"
-        "?driver=ODBC+Driver+17+for+SQL+Server"
-        "&trusted_connection=yes"
-    )
-
+# Koneksi langsung ke SQL Server remote via Tailscale
+# Login: admin_all (SQL Server Authentication)
+SQLALCHEMY_DATABASE_URL = (
+    "mssql+pyodbc://admin_all:PasswordKuat123!@100.103.74.76/kuliah"
+    "?driver=ODBC+Driver+17+for+SQL+Server"
+)
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
